@@ -1,0 +1,16 @@
+<html>
+<head><title>Google Places</title></head>
+<body>
+<h1>Feel free to start exploring</h1>
+
+<form action="#" th:action="@{/google-places}" th:object="${city}" method="post">
+    <select id="cities" th:field="*{id}" >
+        <option value="">Select a city</option>
+        <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+    </select>
+
+    <input type="submit" value="Search">
+</form>
+
+</body>
+</html>
