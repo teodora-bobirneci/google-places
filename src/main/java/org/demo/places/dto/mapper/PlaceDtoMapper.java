@@ -6,6 +6,6 @@ import org.demo.places.model.Place;
 
 public class PlaceDtoMapper {
     public static Place fromDto(PlaceDto dto, City city){
-        return new Place(dto.getName(),city);
+        return new Place(dto.getPlace_id(), dto.getName(),dto.getIcon() , city);
     }
 }

@@ -29,11 +29,15 @@ public class HomepageController {
 
     @PostMapping
     public String nearbyPlaces(Model model, @RequestParam Map<String, String> form) {
-        model.addAttribute("city", locationService.getCity(Long.valueOf(form.get("id"))));
+        City city = locationService.getCity(Long.valueOf(form.get("id")));
+        model.addAttribute("city", city);
+        model.addAttribute("places", locationService.getPlaces(city));
         return "places";
     }
 
-    @Autowired public void setLocationService(LocationService locationService) {
+    @Autowired
+    public void setLocationService(LocationService locationService) {
         this.locationService = locationService;
     }
+
 }

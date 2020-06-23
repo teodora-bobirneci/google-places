@@ -1,6 +1,13 @@
 <html>
 <head><title>Google Places</title></head>
+<link th:href="@{/styles/places.css}" rel="stylesheet" />
 <body>
 <h1>Check out these cool places in <span th:text="${city.name}" /></h1>
+
+<div class="place-preview" th:each="place : ${places}">
+    <img th:src="${place.icon}" width="15" height="15" /><p style="display: inline-block" th:text="${place.name}" ></p>
+    <a th:href="@{'/places/' + ${place.id}+'/details'}" class="details-link">See more</a>
+</div>
+
 </body>
 </html>

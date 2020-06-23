@@ -14,15 +14,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class LocationServiceShould {
+@SpringBootTest class LocationServiceShould {
     @Autowired private DefaultLocationService locationService;
     private City iasi;
     private City cluj;
     private City zalau;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeEach void setup() {
         locationService.deleteAllCities();
         locationService.deleteAllPlaces();
 
@@ -31,7 +29,7 @@ public class LocationServiceShould {
         cluj = locationService.save(new City("Cluj"));
     }
 
-    @Test public void retrieve_cities_sorted_alphabetically() {
+    @Test void retrieve_cities_sorted_alphabetically() {
         List<City> cities = locationService.getCities();
 
         assertThat(cities.get(0)).isEqualTo(cluj);
@@ -39,7 +37,7 @@ public class LocationServiceShould {
         assertThat(cities.get(2)).isEqualTo(zalau);
     }
 
-    @Test public void return_places_based_on_city() {
+    @Test void return_places_based_on_city() {
         Place palaceOfCulture = locationService.save(new Place("Palace of Culture", iasi));
         Place formSpace = locationService.save(new Place("Form Space", cluj));
 

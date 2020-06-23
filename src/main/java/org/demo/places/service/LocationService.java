@@ -2,6 +2,7 @@ package org.demo.places.service;
 
 import org.demo.places.model.City;
 import org.demo.places.model.Place;
+import org.demo.places.model.PlaceDetails;
 
 import java.util.List;
 
@@ -19,4 +20,9 @@ public interface LocationService {
     Place save(Place place);
 
     void deleteAllPlaces();
+
+    PlaceDetails getPlaceDetails(Long id);
+
+    PlaceDetails save(PlaceDetails placeDetails);
+
 }
