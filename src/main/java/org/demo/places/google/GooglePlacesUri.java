@@ -2,8 +2,7 @@ package org.demo.places.google;
 
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.demo.places.google.Operation.DETAILS;
-import static org.demo.places.google.Operation.NEARBY_SEARCH;
+import static org.demo.places.google.Operation.*;
 
 public class GooglePlacesUri {
     static final String GOOGLE_PLACES_ENDPOINT = "https://maps.googleapis.com/maps/api/place";
@@ -13,8 +12,12 @@ public class GooglePlacesUri {
         return new GoogleNearbySearchUriBuilder();
     }
 
-    public static GooglePlaceDetailsUriBuilder placeDetailsUriBuilder() {
+    static GooglePlaceDetailsUriBuilder placeDetailsUriBuilder() {
         return new GooglePlaceDetailsUriBuilder();
+    }
+
+    static GooglePlacePhotosUriBuilder placePhotosUriBuilder() {
+        return new GooglePlacePhotosUriBuilder();
     }
 
     public static class GoogleNearbySearchUriBuilder {
@@ -100,6 +103,40 @@ public class GooglePlacesUri {
             return GOOGLE_PLACES_ENDPOINT + operation.getIdentifier() + "/" + outputType +
                     "?place_id=" + placeId +
 //                    "&fields=" + "address_component,adr_address,business_status,formatted_address,geometry,icon,name,photo,place_id,plus_code,type,url,utc_offset,vicinity" +
+                    "&key=" + (apiKey != null ? apiKey : GOOGLE_API_KEY);
+        }
+    }
+
+    protected static class GooglePlacePhotosUriBuilder {
+        private Operation operation;
+        private String reference;
+        private String maxWidth;
+        private String apiKey;
+
+        public GooglePlacePhotosUriBuilder() {
+            this.operation = PHOTO;
+        }
+
+        public GooglePlacePhotosUriBuilder reference(String reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public GooglePlacePhotosUriBuilder maxWidth(String maxWidth) {
+            this.maxWidth = maxWidth;
+            return this;
+        }
+
+        GooglePlacePhotosUriBuilder apiKey(String apiKey) {
+            this.apiKey = apiKey;
+            return this;
+        }
+
+        String build() {
+            checkNotNull(reference, "The reference must be set.");
+            return GOOGLE_PLACES_ENDPOINT + operation.getIdentifier() +
+                    "?maxwidth=" + maxWidth +
+                    "?photoreference==" + reference +
                     "&key=" + (apiKey != null ? apiKey : GOOGLE_API_KEY);
         }
     }

@@ -5,7 +5,7 @@
 
 <p th:text="${details.name}"></p>
 <p th:text="${details.formattedAddress}"></p>
-<p th:text="${details.website}"></p>
+<a th:href="${details.website}"><span th:text="${details.name}" /> website</a>
 
 </body>
 </html>

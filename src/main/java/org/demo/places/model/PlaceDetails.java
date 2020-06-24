@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 
 @Getter
 @Setter
@@ -15,7 +19,7 @@ public class PlaceDetails {
     @OneToOne @JoinColumn(name = "place_id") private Place place;
     @Column private String googleInternalId;
     @Column private String formattedAddress;
-    @Column(length = 2048) private String photoReferences;
+    @OneToMany(cascade = ALL, orphanRemoval = true, fetch = LAZY) @JoinColumn(name = "place_details_id") private List<PhotoReference> photoReferences;
     @Column private String reference;
     @Column(length = 1024) private String url;
     @Column private String vicinity;

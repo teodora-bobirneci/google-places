@@ -2,7 +2,9 @@ package org.demo.places.google;
 
 public enum Operation {
     NEARBY_SEARCH("/nearbysearch"),
-    DETAILS("/details");
+    DETAILS("/details"),
+    PHOTO("/photo");
+
 
     private final String identifier;
 

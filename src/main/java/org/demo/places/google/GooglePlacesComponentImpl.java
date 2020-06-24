@@ -10,7 +10,6 @@ import org.demo.places.model.City;
 import org.demo.places.model.Place;
 import org.demo.places.model.PlaceDetails;
 import org.demo.places.service.HttpInvoker;
-import org.demo.places.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,6 @@ public class GooglePlacesComponentImpl implements GooglePlacesComponent {
     private static final Integer DEFAULT_RADIUS = 5000;
 
     private HttpInvoker httpInvoker;
-    private LocationService locationService;
 
     @Override public List<Place> fetchPlaces(City city) {
         String uri = GooglePlacesUri.nearbySearchUriBuilder().outputType("json")
@@ -40,16 +38,11 @@ public class GooglePlacesComponentImpl implements GooglePlacesComponent {
                 .placeId(place.getGooglePlaceId())
                 .build();
         PlaceDetailsDto result = httpInvoker.get(uri, DetailsSearchResult.class).getResult();
-        PlaceDetails placeDetails = PlaceDetailsDtoMapper.fromDto(result, place);
-        return locationService.save(placeDetails);
+        return PlaceDetailsDtoMapper.fromDto(result, place);
     }
 
     @Autowired public void setHttpInvoker(HttpInvoker httpInvoker) {
         this.httpInvoker = httpInvoker;
-    }
-
-    @Autowired public void setLocationService(LocationService locationService) {
-        this.locationService = locationService;
     }
 
 }

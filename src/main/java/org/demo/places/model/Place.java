@@ -38,7 +38,7 @@ public class Place {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
-        return Objects.equal(id, place.id) && Objects.equal(name, place.name) && Objects.equal(city, place.city);
+        return Objects.equal(id, place.id);
     }
 
     @Override public int hashCode() {

@@ -7,10 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class ApplicationContextTest {
+@SpringBootTest class ApplicationShould {
 
-    @Test
-    public void spring_context_loads() {
+    @Test void start() {
     }
 }

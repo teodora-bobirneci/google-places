@@ -65,7 +65,11 @@ public class DefaultLocationService implements LocationService {
     @Override public PlaceDetails getPlaceDetails(Long id) {
         Place place = placeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(String.format("There is no place with this id:%d", id)));
         Optional<PlaceDetails> dbDetails = placeDetailsRepository.findDetailsFor(place);
-        return dbDetails.orElse(googlePlacesComponent.fetchDetails(place));
+        if (dbDetails.isPresent()) {
+            return dbDetails.get();
+        }
+        PlaceDetails fetchedDetails = googlePlacesComponent.fetchDetails(place);
+        return placeDetailsRepository.save(fetchedDetails);
     }
 
     @Override public PlaceDetails save(PlaceDetails placeDetails) {

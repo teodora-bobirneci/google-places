@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping({"/places"})
+@RequestMapping({"/google-places"})
 public class PlacesController {
 
     private LocationService locationService;

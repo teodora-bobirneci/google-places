@@ -34,4 +34,18 @@ public class HttpInvoker {
         }
     }
 
+    public byte[] get(String uri) {
+        try {
+            HttpGet get = new HttpGet(uri);
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+
+            log.info(String.format("Invoking GET on %s", uri));
+            HttpResponse response = client.execute(get);
+            return IOUtils.toByteArray(response.getEntity().getContent());
+
+        } catch (IOException e) {
+            throw new UnreachableDestinationException("Could not invoke specified uri due to: " + e.getMessage(), e);
+        }
+    }
+
 }
